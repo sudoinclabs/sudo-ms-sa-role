@@ -23,6 +23,12 @@ data "aws_iam_policy_document" "iam_assume_policy_sudo_ms_sa" {
   }
 }
 
+resource "aws_iam_role_policy_attachment" "user_defined_policies" {
+  count      = length(var.custom_policy_arns)
+  role       = aws_iam_role.iam_role_sudo_ms_sa.name
+  policy_arn = var.custom_policy_arns[count.index]
+}
+
 
 resource "aws_iam_role" "iam_role_sudo_ms_sa" {
   name               = var.role_name
@@ -30,11 +36,13 @@ resource "aws_iam_role" "iam_role_sudo_ms_sa" {
   assume_role_policy = data.aws_iam_policy_document.iam_assume_policy_sudo_ms_sa.json
 }
 resource "aws_iam_role_policy_attachment" "iam_policy_attachment_sudo_ms_sa" {
+  count      = length(var.custom_policy_arns) == 0 ? 1 : 0
   role       = aws_iam_role.iam_role_sudo_ms_sa.name
   policy_arn = aws_iam_policy.iam_policy_sudo_ms_sa.arn
 }
 
 resource "aws_iam_policy" "iam_policy_sudo_ms_sa" {
+  count  = length(var.custom_policy_arns) == 0 ? 1 : 0
   name   = "${var.role_name}-policy"
   policy = data.aws_iam_policy_document.iam_policy_sudo_ms_sa.json
 }
