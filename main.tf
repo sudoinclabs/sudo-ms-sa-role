@@ -38,7 +38,7 @@ resource "aws_iam_role" "iam_role_sudo_ms_sa" {
 resource "aws_iam_role_policy_attachment" "iam_policy_attachment_sudo_ms_sa" {
   count      = length(var.custom_policy_arns) == 0 ? 1 : 0
   role       = aws_iam_role.iam_role_sudo_ms_sa.name
-  policy_arn = aws_iam_policy.iam_policy_sudo_ms_sa.arn
+  policy_arn = aws_iam_policy.iam_policy_sudo_ms_sa[0].arn
 }
 
 resource "aws_iam_policy" "iam_policy_sudo_ms_sa" {
