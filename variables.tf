@@ -35,3 +35,9 @@ variable "custom_policy_arns" {
   description = "(optional) Custom Policy ARNs to attach to the role"
   default     = []
 }
+
+variable "tags" {
+  type        = map(any)
+  description = "(optional) specify your custom tags"
+  default     = {}
+}
