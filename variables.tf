@@ -16,9 +16,9 @@ variable "trusted_role_arns" {
 }
 
 variable "default_policy" {
-  type = bool
+  type        = bool
   description = "(optional) Create default policy. Default: True"
-  default = true
+  default     = true
 }
 variable "condition" {
   type = list(object({
