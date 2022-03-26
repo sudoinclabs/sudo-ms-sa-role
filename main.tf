@@ -37,13 +37,13 @@ resource "aws_iam_role" "iam_role_sudo_ms_sa" {
   tags               = var.tags
 }
 resource "aws_iam_role_policy_attachment" "iam_policy_attachment_sudo_ms_sa" {
-  count      = length(var.custom_policy_arns) == 0 && default_policy ? 1 : 0
+  count      = length(var.custom_policy_arns) == 0 && var.default_policy ? 1 : 0
   role       = aws_iam_role.iam_role_sudo_ms_sa.name
   policy_arn = aws_iam_policy.iam_policy_sudo_ms_sa[0].arn
 }
 
 resource "aws_iam_policy" "iam_policy_sudo_ms_sa" {
-  count  = length(var.custom_policy_arns) == 0 && default_policy ? 1 : 0
+  count  = length(var.custom_policy_arns) == 0 && var.default_policy ? 1 : 0
   name   = "${var.role_name}-policy"
   policy = data.aws_iam_policy_document.iam_policy_sudo_ms_sa.json
 }
