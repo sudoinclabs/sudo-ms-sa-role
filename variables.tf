@@ -15,6 +15,11 @@ variable "trusted_role_arns" {
   description = "Trusted role ARNs"
 }
 
+variable "default_policy" {
+  type = bool
+  description = "(optional) Create default policy. Default: True"
+  default = true
+}
 variable "condition" {
   type = list(object({
     test     = string
