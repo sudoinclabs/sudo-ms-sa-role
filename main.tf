@@ -7,15 +7,11 @@ data "aws_iam_policy_document" "iam_assume_policy_sudo_ms_sa" {
 
     effect = "Allow"
 
-    principals {
-      type        = "AWS"
-      identifiers = var.trusted_role_arns
-    }
-    dynamic "principal" {
-      for_each = var.principal
+    dynamic "principals" {
+      for_each = var.principals
       content {
-        type        = principal.value.type
-        identifiers = principal.value.identifiers
+        type        = principals.value.type
+        identifiers = principals.value.identifiers
       }
     }
     dynamic "condition" {
