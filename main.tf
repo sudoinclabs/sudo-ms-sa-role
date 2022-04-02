@@ -11,7 +11,13 @@ data "aws_iam_policy_document" "iam_assume_policy_sudo_ms_sa" {
       type        = "AWS"
       identifiers = var.trusted_role_arns
     }
-
+    dynamic "principal" {
+      for_each = var.principal
+      content {
+        type        = principal.value.type
+        identifiers = principal.value.identifiers
+      }
+    }
     dynamic "condition" {
       for_each = var.condition
       content {

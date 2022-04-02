@@ -20,6 +20,20 @@ variable "default_policy" {
   description = "(optional) Create default policy. Default: True"
   default     = true
 }
+
+variable "principal" {
+  type = list(object({
+    type     = string
+    identifiers = string
+  }))
+  description = "(optional) list of principals"
+  default = [{
+    type     = "Service"
+    variable = "ec2.amazonaws.com"
+    }
+  ]
+}
+
 variable "condition" {
   type = list(object({
     test     = string
