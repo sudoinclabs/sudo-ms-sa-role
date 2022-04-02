@@ -21,7 +21,7 @@ variable "default_policy" {
   default     = true
 }
 
-variable "principal" {
+variable "principals" {
   type = list(object({
     type        = string
     identifiers = string
